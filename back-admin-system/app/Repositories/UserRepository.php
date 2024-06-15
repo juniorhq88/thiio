@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
-class UserRepository implements UserRepositoryInterface
+class UserRepository implements RepositoryInterface
 {
     public function all(): Collection
     {
@@ -15,6 +15,11 @@ class UserRepository implements UserRepositoryInterface
     public function find(int $id)
     {
         return User::find($id);
+    }
+
+    public function getUserByEmail(string $email): User
+    {
+        return User::whereEmail($email)->first();
     }
 
     public function create(array $data)
