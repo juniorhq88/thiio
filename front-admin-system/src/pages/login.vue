@@ -1,17 +1,33 @@
 <script setup>
 import { useTheme } from 'vuetify'
-import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
-import logo from '@images/logo.svg?raw'
 import authV1MaskDark from '@images/pages/auth-v1-mask-dark.png'
 import authV1MaskLight from '@images/pages/auth-v1-mask-light.png'
 import authV1Tree2 from '@images/pages/auth-v1-tree-2.png'
 import authV1Tree from '@images/pages/auth-v1-tree.png'
+
+import { Form } from 'vee-validate';
+import * as Yup from 'yup';
+
+import { useAuthStore } from '@/stores';
+
+const schema = Yup.object().shape({
+    email: Yup.string().required('Email is required'),
+    password: Yup.string().required('Password is required')
+});
 
 const form = ref({
   email: '',
   password: '',
   remember: false,
 })
+
+async function onSubmit(values) {
+    const authStore = useAuthStore();
+    const { email, password } = values;
+    await authStore.login(email, password);
+}
+
+
 
 const vuetifyTheme = useTheme()
 
@@ -42,34 +58,34 @@ const isPasswordVisible = ref(false)
       </VCardText>
 
       <VCardText>
-        <VForm @submit.prevent="() => {}">
+        <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting }">
           <VRow>
             <!-- email -->
             <VCol cols="12">
               <VTextField
-                v-model="form.email"
+                v-model="email"
                 label="Email"
                 type="email"
+                :class="{ 'is-invalid': errors.email }" 
               />
+              <div class="invalid-feedback">{{ errors.email }}</div>
             </VCol>
 
             <!-- password -->
             <VCol cols="12">
               <VTextField
-                v-model="form.password"
+                v-model="password"
                 label="Password"
                 placeholder="············"
                 :type="isPasswordVisible ? 'text' : 'password'"
                 :append-inner-icon="isPasswordVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
+                :class="{ 'is-invalid': errors.password }"
                 @click:append-inner="isPasswordVisible = !isPasswordVisible"
               />
-
+              <div class="invalid-feedback">{{ errors.password }}</div>
               <!-- remember me checkbox -->
               <div class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4">
-                <VCheckbox
-                  v-model="form.remember"
-                  label="Remember me"
-                />
+               
 
                 <a
                   class="ms-2 mb-1"
@@ -107,7 +123,7 @@ const isPasswordVisible = ref(false)
 
            
           </VRow>
-        </VForm>
+        </Form>
       </VCardText>
     </VCard>
 
