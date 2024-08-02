@@ -23,9 +23,9 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->userRepository->all();
+
         return response()->json($users);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -34,10 +34,11 @@ class UserController extends Controller
     {
         $data = $request->all();
         $user = $this->userRepository->create($data);
+
         return response()->json([
             'status' => 'success',
             'user' => $user,
-            'message' => 'User created successfully'
+            'message' => 'User created successfully',
         ], 201);
     }
 
@@ -47,6 +48,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $user = $this->userRepository->find($user->id);
+
         return response()->json([
             'status' => 'success',
             'user' => $user,
@@ -64,7 +66,7 @@ class UserController extends Controller
         return response()->json([
             'status' => 'success',
             'user' => $this->userRepository->find($user->id),
-            'message' => 'User updated successfully'
+            'message' => 'User updated successfully',
         ]);
     }
 
@@ -74,9 +76,10 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->userRepository->delete($user->id);
+
         return response()->json([
             'status' => 'success',
-            'message' => 'User deleted successfully'
+            'message' => 'User deleted successfully',
         ]);
     }
 }

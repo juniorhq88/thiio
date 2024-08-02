@@ -9,12 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Laravel\Sanctum\PersonalAccessToken;
-
 
 class AuthController extends Controller
 {
-
     protected $userRepository;
 
     public function __construct(UserRepository $userRepository)
@@ -24,9 +21,6 @@ class AuthController extends Controller
 
     /**
      * signin
-     *
-     * @param  Request  $request
-     * @return JsonResponse
      */
     public function signin(Request $request): JsonResponse
     {
@@ -44,7 +38,7 @@ class AuthController extends Controller
                 return response()->json($validateUser->errors()->first(), 401);
             }
 
-            if (!Auth::attempt($request->only(['email', 'password']))) {
+            if (! Auth::attempt($request->only(['email', 'password']))) {
                 return response()->json('Email and password do not match our registration', 422);
             }
 
@@ -55,7 +49,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'success',
                 'token' => $success['token'],
-                'message' => 'User logged correctly'
+                'message' => 'User logged correctly',
             ]);
         } catch (\Throwable $th) {
             return response()->json($th->getMessage(), 500);
@@ -64,9 +58,6 @@ class AuthController extends Controller
 
     /**
      * signup
-     *
-     * @param  Request  $request
-     * @return JsonResponse
      */
     public function signup(Request $request): JsonResponse
     {
@@ -85,7 +76,6 @@ class AuthController extends Controller
             return response()->json($validateUser->errors()->first(), 422);
         }
 
-
         $input['name'] = ucfirst($input['name']);
         $input['password'] = Hash::make($input['password']);
 
@@ -93,12 +83,10 @@ class AuthController extends Controller
 
         $success['token'] = $user->createToken('MyNewApp')->plainTextToken;
 
-
-
         return response()->json([
             'status' => 'success',
             'token' => $success,
-            'message' => 'User created successfully'
+            'message' => 'User created successfully',
         ]);
     }
 }

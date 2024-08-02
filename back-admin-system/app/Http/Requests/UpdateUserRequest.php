@@ -25,7 +25,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|email|regex:/(.*)@(.*)\.(.*)/|unique:users,email,' . $this->id,
+            'email' => 'required|email|regex:/(.*)@(.*)\.(.*)/|unique:users,email,'.$this->id,
 
         ];
     }

@@ -32,8 +32,10 @@ class UserRepository implements RepositoryInterface
         $user = $this->find($id);
         if ($user) {
             $user->update($data);
+
             return $user;
         }
+
         return null;
     }
 
@@ -43,6 +45,7 @@ class UserRepository implements RepositoryInterface
         if ($user) {
             return $user->delete();
         }
+
         return null;
     }
 }

@@ -5,8 +5,6 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Hash;
-use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class AuthControllerTest extends TestCase
@@ -28,7 +26,7 @@ class AuthControllerTest extends TestCase
             ->assertJsonStructure([
                 'status',
                 'token',
-                'message'
+                'message',
             ]);
 
         $this->assertDatabaseHas('users', [
@@ -48,12 +46,11 @@ class AuthControllerTest extends TestCase
             'password' => 'password',
         ]);
 
-
         $response->assertStatus(200)
             ->assertJsonStructure([
                 'status',
                 'token',
-                'message'
+                'message',
             ]);
     }
 

@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
+use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
@@ -28,7 +28,6 @@ class UserControllerTest extends TestCase
 
         // Hacer una solicitud GET a /api/users
         $response = $this->getJson('/api/users');
-
 
         // Verificar que la respuesta sea exitosa
         $response->assertStatus(200);
