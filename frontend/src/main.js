@@ -1,19 +1,18 @@
 import { createApp } from 'vue'
-import App from '@/App.vue'
-import PerfectScrollbar from 'vue3-perfect-scrollbar';
-import { registerPlugins } from '@core/utils/plugins'
+import { createPinia } from 'pinia'
+import App from './App.vue'
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import '@mdi/font/css/materialdesignicons.css'
 
-// Styles
-import '@core/scss/template/index.scss'
-import '@layouts/styles/index.scss'
-import 'vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css';
+const vuetify = createVuetify({
+  components,
+  directives,
+})
 
-// Create vue app
 const app = createApp(App)
-
-app.use(PerfectScrollbar);
-// Register plugins
-registerPlugins(app)
-
-// Mount vue app
+app.use(createPinia())
+app.use(vuetify)
 app.mount('#app')
