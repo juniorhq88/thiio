@@ -27,9 +27,12 @@
   
   <script setup>
   import { ref } from 'vue'
+  import { useRouter } from 'vue-router'
   import { useAuthStore } from '../stores/auth'
   
   const auth = useAuthStore()
+  const router = useRouter()
+
   const email = ref('')
   const password = ref('')
   const loading = ref(false)
@@ -44,6 +47,9 @@
         snackbarText.value = 'Login successful'
         snackbarColor.value = 'success'
         // Aquí podrías redirigir al usuario a otra página
+        
+        router.push('/dashboard')
+        
       } else {
         snackbarText.value = 'Login failed'
         snackbarColor.value = 'error'

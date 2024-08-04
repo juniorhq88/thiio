@@ -25,8 +25,7 @@ export const useAuthStore = defineStore('auth', {
           localStorage.setItem('token', response.data.token)
           localStorage.setItem('user', JSON.stringify(response.data.user))
           
-          const router = useRouter()
-          router.push('/dashboard')
+
           return true
         }
       } catch (error) {
@@ -40,9 +39,6 @@ export const useAuthStore = defineStore('auth', {
       this.isAuthenticated = false
       localStorage.removeItem('token')
       localStorage.removeItem('user')
-      const router = useRouter()
-
-      router.push('/')
 
     },
     initializeAuth() {
@@ -50,11 +46,9 @@ export const useAuthStore = defineStore('auth', {
       const user = localStorage.getItem('user')
       if (token) {
         this.token = token
-        this.user = Json.parse(user)
+        this.user = user
         this.isAuthenticated = true
-        // Aquí podrías hacer una petición al servidor para obtener los datos del usuario
-        const router = useRouter()
-          router.push('/dashboard')
+  
       }
     }
   },

@@ -17,5 +17,10 @@
   
   onMounted(() => {
     auth.initializeAuth()
+    // Check if the user is authenticated before rendering the LoginForm
+    if (auth.isAuthenticated) {
+      // Redirect to the dashboard if authenticated
+      router.push('/dashboard')
+    }
   })
   </script>
