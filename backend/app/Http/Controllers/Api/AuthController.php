@@ -38,7 +38,7 @@ class AuthController extends Controller
                 return response()->json($validateUser->errors()->first(), 401);
             }
 
-            if (! Auth::attempt($request->only(['email', 'password']))) {
+            if (!Auth::attempt($request->only(['email', 'password']))) {
                 return response()->json('Email and password do not match our registration', 422);
             }
 
@@ -49,6 +49,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'success',
                 'token' => $success['token'],
+                'user' => $user,
                 'message' => 'User logged correctly',
             ]);
         } catch (\Throwable $th) {

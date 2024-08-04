@@ -22,6 +22,7 @@ export const useAuthStore = defineStore('auth', {
           
           // Guarda el token en el almacenamiento local
           localStorage.setItem('token', response.data.token)
+          localStorage.setItem('user', response.data.user)
           
           return true
         }
@@ -35,11 +36,14 @@ export const useAuthStore = defineStore('auth', {
       this.token = null
       this.isAuthenticated = false
       localStorage.removeItem('token')
+      localStorage.removeItem('user')
     },
     initializeAuth() {
       const token = localStorage.getItem('token')
+      const user = localStorage.getItem('user')
       if (token) {
         this.token = token
+        this.user = user
         this.isAuthenticated = true
         // Aquí podrías hacer una petición al servidor para obtener los datos del usuario
       }
