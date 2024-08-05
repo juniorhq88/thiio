@@ -22,10 +22,12 @@ RUN npm run
 RUN npm run build || (echo "Error durante la construcción. Mostrando logs:" && cat npm-debug.log)
 
 # Instalar un servidor ligero para servir la aplicación
-RUN npm install -g http-server
+#RUN npm install -g http-server
+#RUN npm run dev 
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
 
 # Exponer puerto 8080
-EXPOSE 8080
+EXPOSE 5173
 
 # Comando para ejecutar la aplicación
-CMD [ "http-server", "dist" ]
+#CMD [ "http-server", "dist" ]
