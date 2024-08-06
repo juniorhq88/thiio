@@ -40,9 +40,9 @@
   const drawer = ref(false)
 
   const menuItems = ref([
-    { title: 'Inicio', icon: 'mdi-home', to: '/' },
-    { title: 'Perfil', icon: 'mdi-account', to: '/profile' },
-    { title: 'Configuración', icon: 'mdi-cog', to: '/settings' },
+    { title: 'Home', icon: 'mdi-home', to: '/' },
+    { title: 'Users', icon: 'mdi-account', to: '/users' },
+
     ])
 
     const handleLogout = () => {
