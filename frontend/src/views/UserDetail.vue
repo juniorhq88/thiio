@@ -1,29 +1,23 @@
 <template>
-    <div v-if="user">
-      <h1>{{ user.name }}</h1>
-      <router-link :to="`/users/${user.id}/edit`">Edit</router-link>
-    </div>
+      <v-container v-if="user">
+        <h1>{{ user.name }}</h1>
+        <router-link :to="`/users/${user.id}/edit`">Edit</router-link>
+      </v-container>
   </template>
   
-  <script>
+  <script setup>
   import { useRoute } from 'vue-router'
   import { useUserStore } from '../stores/userStore'
-  import { onMounted } from 'vue'
+  import { ref, onMounted } from 'vue'
   
-  export default {
-    name: 'UserDetail',
-    setup() {
+      user = ref('')
       const route = useRoute()
       const userStore = useUserStore()
   
       onMounted(() => {
         userStore.fetchUser(route.params.id)
+        user = userStore.user
       })
   
-      return {
-        user: userStore.user
-      }
-    }
-  }
   </script>
   

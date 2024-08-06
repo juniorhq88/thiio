@@ -1,5 +1,6 @@
 <template>
-    <div>
+      <v-container>
+
       <h1>{{ isEdit ? 'Edit' : 'Create' }} User</h1>
       <form @submit.prevent="handleSubmit">
         <div>
@@ -8,17 +9,15 @@
         </div>
         <button type="submit">{{ isEdit ? 'Update' : 'Create' }}</button>
       </form>
-    </div>
+      </v-container>
   </template>
   
-  <script>
+  <script setup>
   import { useRouter, useRoute } from 'vue-router'
   import { useUserStore } from '../stores/userStore'
   import { ref, onMounted } from 'vue'
   
-  export default {
-    name: 'UserForm',
-    setup() {
+
       const router = useRouter()
       const route = useRoute()
       const userStore = useUserStore()
@@ -43,13 +42,6 @@
           form.value = { ...userStore.user }
         }
       })
-  
-      return {
-        form,
-        isEdit,
-        handleSubmit
-      }
-    }
-  }
+
   </script>
   

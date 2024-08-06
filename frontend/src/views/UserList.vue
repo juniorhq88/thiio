@@ -1,38 +1,59 @@
 <template>
-    <MainLayout>
     <v-container>
-      <h1>Users</h1>
+      <h1>User List</h1>
       <router-link to="/users/create">Create New User</router-link>
-      <ul>
-        <li v-for="user in users" :key="user.id">
-          <router-link :to="`/users/${user.id}`">{{ user.name }}</router-link>
-          <button @click="deleteUser(user.id)">Delete</button>
-        </li>
-      </ul>
+      <v-table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="user in userStore.users" :key="user.id">
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <v-btn
+                size="small"
+                color="primary"
+                @click="viewUser(user.id)"
+              >
+                View
+              </v-btn>
+              <v-btn
+                size="small"
+                color="warning"
+                @click="editUser(user.id)"
+              >
+                Edit
+              </v-btn>
+            </td>
+          </tr>
+        </tbody>
+      </v-table>
     </v-container>
-    </MainLayout>
   </template>
   
-  <script>
+  <script setup>
   import { useUserStore } from '../stores/userStore'
   import { onMounted } from 'vue'
-  import MainLayout from '../layouts/MainLayout.vue';
 
-  
-  export default {
-    name: 'UserList',
-    setup() {
       const userStore = useUserStore()
   
       onMounted(() => {
         userStore.fetchUsers()
       })
-  
-      return {
-        users: userStore.users,
-        deleteUser: userStore.deleteUser
+
+      const viewUser = (id) => {
+        router.push({ name: 'UserDetail', params: { id } })
       }
-    }
-  }
+
+      const editUser = (id) => {
+        router.push({ name: 'UserEdit', params: { id } })
+      }
   </script>
   

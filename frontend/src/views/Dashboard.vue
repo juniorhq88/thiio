@@ -1,5 +1,4 @@
   <template>
-    <MainLayout>
       <v-container>
           <h1>Dashboard</h1>
           <h2>Welcome, {{ auth.user?.email }}</h2>
@@ -7,7 +6,7 @@
           <v-row>
         <v-col cols="12" md="6">
           <v-card>
-            <v-card-title>Usuarios Registrados</v-card-title>
+            <v-card-title>Users Registered</v-card-title>
             <v-card-text>
               <h3>{{ userCount }}</h3>
             </v-card-text>
@@ -15,7 +14,7 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-card>
-            <v-card-title>Últimas Actividades</v-card-title>
+            <v-card-title>Latest activities</v-card-title>
             <v-card-text>
               <ul>
                 <li v-for="activity in recentActivities" :key="activity.id">
@@ -26,13 +25,11 @@
           </v-card>
         </v-col>
       </v-row>
-
-
-        </v-container>
-    </MainLayout>
-  </template>
+    </v-container>
+</template>
   
   <script setup>
+  import { ref, onMounted } from 'vue'
   import { useAuthStore } from '../stores/auth'
   import MainLayout from '../layouts/MainLayout.vue';
   
@@ -41,15 +38,13 @@
 const recentActivities = ref([])
 
 // Función para cargar los datos del dashboard
-const loadDashboardData = async () => {
+const loadDashboardData = () => {
   try {
     // Aquí normalmente harías una llamada a una API
     // Por ahora, usaremos datos de ejemplo
-    userCount.value = 1234
+    userCount.value = 15
     recentActivities.value = [
-      { id: 1, description: 'Nuevo usuario registrado' },
-      { id: 2, description: 'Actualización de perfil' },
-      { id: 3, description: 'Nuevo post creado' }
+      { id: 1, description: 'New user registered' }
     ]
   } catch (error) {
     console.error('Error al cargar los datos del dashboard:', error)

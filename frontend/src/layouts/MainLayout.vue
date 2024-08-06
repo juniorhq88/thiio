@@ -18,15 +18,14 @@
             </v-list>
         </v-navigation-drawer>
         <v-main fluid>
-            <slot></slot>
+            <router-view></router-view>
 
             <footer>
                 <p class="text-center">&copy; {{ new Date().getFullYear() }}</p>
             </footer>
         </v-main>
-      
     </v-app>
-  </template>
+</template>
   
 <script setup>
 import { ref } from 'vue'

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import axios from 'axios'
+import api from '../api'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -9,7 +9,7 @@ export const useUserStore = defineStore('user', {
   actions: {
     async fetchUsers() {
       try {
-        const response = await axios.get('http://localhost:8000/api/users')
+        const response = await api.get('/users')
         this.users = response.data
       } catch (error) {
         console.error('Error fetching users:', error)
@@ -17,7 +17,7 @@ export const useUserStore = defineStore('user', {
     },
     async fetchUser(id) {
       try {
-        const response = await axios.get(`http://localhost:8000/api/users/${id}`)
+        const response = await api.get(`/users/${id}`)
         this.user = response.data
       } catch (error) {
         console.error('Error fetching user:', error)
@@ -25,7 +25,7 @@ export const useUserStore = defineStore('user', {
     },
     async createUser(data) {
       try {
-        const response = await axios.post('http://localhost:8000/api/users', data)
+        const response = await api.post('/users', data)
         this.users.push(response.data)
       } catch (error) {
         console.error('Error creating user:', error)
