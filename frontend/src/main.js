@@ -11,6 +11,9 @@ import '@mdi/font/css/materialdesignicons.css'
 const vuetify = createVuetify({
   components,
   directives,
+  icons: {
+    defaultSet: 'mdi', // Esto asegura que estés usando el set de iconos de Material Design
+  },
 })
 
 const app = createApp(App)
@@ -18,3 +21,8 @@ app.use(createPinia())
 app.use(vuetify)
 app.use(router)
 app.mount('#app')
+
+app.config.errorHandler = (err, vm, info) => {
+  console.error('Vue error:', err)
+  console.error('Error info:', info)
+}

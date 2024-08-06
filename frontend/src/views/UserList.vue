@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <MainLayout>
+    <v-container>
       <h1>Users</h1>
       <router-link to="/users/create">Create New User</router-link>
       <ul>
@@ -8,12 +9,15 @@
           <button @click="deleteUser(user.id)">Delete</button>
         </li>
       </ul>
-    </div>
+    </v-container>
+    </MainLayout>
   </template>
   
   <script>
   import { useUserStore } from '../stores/userStore'
   import { onMounted } from 'vue'
+  import MainLayout from '../layouts/MainLayout.vue';
+
   
   export default {
     name: 'UserList',

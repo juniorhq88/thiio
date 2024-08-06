@@ -5,6 +5,7 @@ import NotFound from '../views/NotFound.vue'
 import UserList from '../views/UserList.vue'
 import UserForm from '../views/UserForm.vue'
 import UserDetail from '../views/UserDetail.vue'
+import MainLayout from '../layouts/MainLayout.vue'
 
 const routes = [
     {
@@ -13,34 +14,40 @@ const routes = [
     component: Login
     },
     {
-        path: '/dashboard',
-        name: 'Dashboard',
-        component: Dashboard,
-        meta: { requiresAuth: true }
-    },
-    {
-      path: '/users',
-      name: 'UserList',
-      component: UserList,
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/users/create',
-      name: 'UserCreate',
-      component: UserForm,
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/users/:id',
-      name: 'UserDetail',
-      component: UserDetail,
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/users/:id/edit',
-      name: 'UserEdit',
-      component: UserForm,
-      meta: { requiresAuth: true }
+      path: '/',
+      component: MainLayout,
+      children: [
+          {
+              path: '/dashboard',
+              name: 'Dashboard',
+              component: Dashboard,
+              meta: { requiresAuth: true }
+          },
+          {
+            path: '/users',
+            name: 'UserList',
+            component: UserList,
+            meta: { requiresAuth: true }
+          },
+          {
+            path: '/users/create',
+            name: 'UserCreate',
+            component: UserForm,
+            meta: { requiresAuth: true }
+          },
+          {
+            path: '/users/:id',
+            name: 'UserDetail',
+            component: UserDetail,
+            meta: { requiresAuth: true }
+          },
+          {
+            path: '/users/:id/edit',
+            name: 'UserEdit',
+            component: UserForm,
+            meta: { requiresAuth: true }
+          }
+      ]
     },
     {
         path: '/:pathMatch(.*)*',
