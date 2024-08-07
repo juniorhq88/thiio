@@ -1,14 +1,46 @@
 <template>
       <v-container>
-
-      <h1>{{ isEdit ? 'Edit' : 'Create' }} User</h1>
-      <form @submit.prevent="handleSubmit">
-        <div>
-          <label for="name">Name:</label>
-          <input id="name" v-model="form.name" required>
-        </div>
-        <button type="submit">{{ isEdit ? 'Update' : 'Create' }}</button>
-      </form>
+        <h1>{{ isEdit ? 'Edit' : 'Create' }} User</h1>
+        <v-form @submit.prevent="handleSubmit">
+          <v-container>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="form.name"
+                  label="Name"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="form.email"
+                  label="Email"
+                  type="email"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="form.password"
+                  label="Password"
+                  type="password"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="form.password_confirmation"
+                  label="Password Confirmation"
+                  type="password"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-btn type="submit" color="primary">{{ isEdit ? 'Update' : 'Create' }}</v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-form>
       </v-container>
   </template>
   
@@ -24,7 +56,10 @@
   
       const isEdit = route.name === 'UserEdit'
       const form = ref({
-        name: ''
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: ''
       })
   
       const handleSubmit = async () => {
@@ -33,7 +68,7 @@
         } else {
           await userStore.createUser(form.value)
         }
-        router.push('/')
+        router.push('/users')
       }
   
       onMounted(() => {

@@ -1,7 +1,7 @@
   <template>
       <v-container>
           <h1>Dashboard</h1>
-          <h2>Welcome, {{ auth.user?.email }}</h2>
+          <h2>Welcome to the Dahsboard, {{ userName }}</h2>
 
           <v-row>
         <v-col cols="12" md="6">
@@ -29,9 +29,9 @@
 </template>
   
   <script setup>
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, computed } from 'vue'
   import { useAuthStore } from '../stores/auth'
-  import MainLayout from '../layouts/MainLayout.vue';
+
   
   const auth = useAuthStore()  
   const userCount = ref(0)
@@ -51,8 +51,17 @@ const loadDashboardData = () => {
   }
 }
 
+const userName = computed(() => {
+      if (auth.user) {
+        const user = typeof auth.user === 'string' ? JSON.parse(auth.user) : auth.user
+        return user.name || user.email || 'Usuario'
+      }
+      return 'Usuario'
+    })
+
 onMounted(() => {
   loadDashboardData()
+  auth.initializeAuth()
 })
   </script>
   

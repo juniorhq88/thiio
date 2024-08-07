@@ -1,7 +1,12 @@
 <template>
     <v-container>
       <h1>User List</h1>
-      <router-link to="/users/create">Create New User</router-link>
+      <v-btn
+                size="small"
+                color="primary"
+                @click="createUser()"
+              >Create New User
+            </v-btn>
       <v-table>
         <thead>
           <tr>
@@ -39,14 +44,21 @@
   </template>
   
   <script setup>
-  import { useUserStore } from '../stores/userStore'
   import { onMounted } from 'vue'
+  import { useUserStore } from '../stores/userStore'
+  import { useRouter } from 'vue-router'
+
 
       const userStore = useUserStore()
+      const router = useRouter()
   
       onMounted(() => {
         userStore.fetchUsers()
       })
+
+      const createUser = () => {
+        router.push({ name: 'UserCreate' })
+      }
 
       const viewUser = (id) => {
         router.push({ name: 'UserDetail', params: { id } })
